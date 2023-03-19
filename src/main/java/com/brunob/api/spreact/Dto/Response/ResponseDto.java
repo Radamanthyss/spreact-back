@@ -1,4 +1,4 @@
-package com.brunob.api.spreact.Dto;
+package com.brunob.api.spreact.Dto.Response;
 
 import lombok.Data;
 import org.springframework.stereotype.Component;

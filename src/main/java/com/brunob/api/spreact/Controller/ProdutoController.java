@@ -1,8 +1,8 @@
 package com.brunob.api.spreact.Controller;
 
-import com.brunob.api.spreact.Dto.ResponseDto;
-import com.brunob.api.spreact.Entity.Produto;
-import com.brunob.api.spreact.Service.Impl.ProdutoServiceImpl;
+import com.brunob.api.spreact.Dto.ProdutoDto;
+import com.brunob.api.spreact.Dto.Response.ResponseDto;
+import com.brunob.api.spreact.Service.Impl.ProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,30 +15,30 @@ import org.springframework.web.bind.annotation.*;
 public class ProdutoController {
 
     @Autowired
-    private ProdutoServiceImpl produtoService;
+    private ProdutoService produtoService;
 
     @GetMapping
-    public Iterable<Produto> getProdutos(){
-        return produtoService.listar();
+    public Iterable<ProdutoDto> getProdutos(){
+        return produtoService.getProdutos();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getProduto(@PathVariable Long id){
-        return produtoService.listarPorId(id);
+        return produtoService.getProduto(id);
     }
 
     @PostMapping
-    public ResponseEntity<?> cadastrar(@RequestBody Produto produto){
-        return produtoService.cadastrarAlterar(produto,0);
+    public ResponseEntity<?> insert(@RequestBody ProdutoDto produtoDto){
+        return produtoService.insertOrUpdate(produtoDto,0);
     }
 
     @PutMapping
-    public ResponseEntity<?> alterar(@RequestBody Produto produto){
-        return produtoService.cadastrarAlterar(produto,1);
+    public ResponseEntity<?> update(@RequestBody ProdutoDto produtoDto){
+        return produtoService.insertOrUpdate(produtoDto,1);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<ResponseDto> deletar(@PathVariable Long id){
-        return produtoService.deletar(id);
+    public ResponseEntity<ResponseDto> delete(@PathVariable Long id){
+        return produtoService.delete(id);
     }
 }
